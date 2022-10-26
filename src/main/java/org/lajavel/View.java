@@ -14,18 +14,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class View {
+    // Default make
     public static String make(String viewName, Map.Entry<String, Object>... entries) {
-        String layout = View.getViewContent("layout");
-        String rawHtml = View.getViewContent(viewName);
+        String layoutHtml = View.getViewContent("layouts/main");
+        String viewHtml = View.getViewContent("views/" + viewName);
+
+        String rawHtml = layoutHtml.replaceFirst("\\{\\{\s*?content\s*?}}", viewHtml);
 
         String html = handleForeachesReplacement(rawHtml, entries);
-        html = handlePropertiesReplacement(html, entries);
-        return layout.replaceFirst("\\{\\{\s*?content\s*?}}", html);
+        return handlePropertiesReplacement(html, entries);
     }
+
+    // make with Layout parameter
+    public static String make(String viewName, String layout, Map.Entry<String, Object>... entries) {
+        String layoutHtml = View.getViewContent("layouts/" + layout);
+        String viewHtml = View.getViewContent("views/" + viewName);
+
+        String rawHtml = layoutHtml.replaceFirst("\\{\\{\s*?content\s*?}}", viewHtml);
+
+        String html = handleForeachesReplacement(rawHtml, entries);
+        return handlePropertiesReplacement(html, entries);
+    }
+
 
     private static String handleForeachesReplacement(String html, Map.Entry<String, Object>... entries) {
         Matcher matcher = Pattern
-                .compile("\\{%\s*?for (\\S*) in (\\S*)\s*?%}(.*)\\{%\s*?endfor\s*?%}", Pattern.DOTALL)
+                .compile("\\{%\s*?for\s(\\w*)\sin\s(\\w*)\s*?%}(.*)\\{%\s*?endfor\s*?%}", Pattern.DOTALL)
                 .matcher(html);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
@@ -55,6 +69,39 @@ public class View {
         matcher.appendTail(sb);
         return sb.toString();
     }
+
+//    private static String handleForeachesReplacement(String html, Map.Entry<String, Object>... entries) {
+//        Matcher matcher = Pattern
+//                .compile("\\{%\s*?for (\\S*) in (\\S*)\s*?%}(.*)\\{%\s*?endfor\s*?%}", Pattern.DOTALL)
+//                .matcher(html);
+//
+//        if (matcher.find()) {
+//            StringBuffer htmlBuffer = new StringBuffer();
+//            StringBuffer foreachHtmlBuffer = new StringBuffer();
+//            do {
+//                foreachHtmlBuffer.clear();
+//                String modelName = matcher.group(1);
+//                String collectionName = matcher.group(2);
+//                String foreachHtml = matcher.group(3);
+//
+//                for (Map.Entry<String, Object> entry : entries) {
+//                    if (!entry.getKey().equals(collectionName)) {
+//                        continue;
+//                    }
+//                    foreachHtmlBuffer.append(handleForeachesReplacement(foreachHtml, entries));
+//                    for (Object model : (List<?>) entry.getValue()) {
+//                        foreachHtmlBuffer.append(handlePropertiesReplacement(foreachHtml, Map.entry(modelName, model)));
+//                    }
+//                }
+//                matcher.appendReplacement(htmlBuffer, foreachHtmlBuffer.toString());
+//                break;
+//            } while (matcher.find());
+//
+//            matcher.appendTail(htmlBuffer);
+//            return htmlBuffer.toString();
+//        }
+//        return "";
+//    }
 
     private static String handlePropertiesReplacement(String html, Map.Entry<String, Object>... entries) {
         Matcher matcher = Pattern.compile("\\{\\{(.*?)}}").matcher(html);
@@ -106,9 +153,9 @@ public class View {
         }
 
         if (isMethod) {
-            return getMethod(String.class, object, propertyName);
+            return getMethodValue(String.class, object, propertyName);
         } else {
-            Object returnValue = getProperty(Object.class, object, propertyName);
+            Object returnValue = getPropertyValue(Object.class, object, propertyName);
             return returnValue.toString();
         }
     }
@@ -118,7 +165,7 @@ public class View {
      * @param propertyName
      * @return the value of the property
      */
-    private static <T> T getProperty(Class<T> clazz, Object object, String propertyName) {
+    private static <T> T getPropertyValue(Class<T> clazz, Object object, String propertyName) {
         Object returnValue = null;
         try {
             Field field = object.getClass().getDeclaredField(propertyName);
@@ -130,7 +177,7 @@ public class View {
         return clazz.cast(returnValue);
     }
 
-    private static <T> T getMethod(Class<T> clazz, Object object, String methodName) {
+    private static <T> T getMethodValue(Class<T> clazz, Object object, String methodName) {
         Object returnValue = null;
         try {
             Method method = object.getClass().getDeclaredMethod(methodName.replace("()", ""));

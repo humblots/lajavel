@@ -1,6 +1,7 @@
 package org.lajavel;
 
 import io.javalin.Javalin;
+import io.javalin.http.staticfiles.Location;
 
 public class Application {
     private static Application instance;
@@ -11,7 +12,9 @@ public class Application {
 
     private Application(Integer port, Mode mode) {
         this.port = port;
-        this.server = Javalin.create().start(port);
+        this.server = Javalin.create(config -> {
+            config.addStaticFiles("/public", Location.CLASSPATH);
+        }).start(port);
         this.mode = mode;
     }
 

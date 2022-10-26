@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script src="https://cdn.tailwindcss.com"></script>
+          <script>
+            tailwind.config = {
+              theme: {
+                extend: {
+                  colors: {
+                    primary: '#7473ca',
+                    secondary: '#774983',
+                    pinklajavel: '#f85293',
+                    yellowlajavel: '#f3e66f',
+                  }
+                }
+              }
+            }
+          </script>
+    </head>
+    <body class="bg-primary">
+        <nav class="px-2 sm:px-4 py-2.5 w-full">
+            <div class="container flex flex-wrap justify-between items-center mx-auto">
+                <a class="flex items-center" href="/">
+                    <img alt="Lajavel Logo" class="mr-3 h-9 sm:h-16" src="https://github.com/DamienDabernat/Lajavel/raw/main/src/main/resources/images/logo_medium.png">
+                </a>
+                <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar">
+                    <ul class="flex flex-col p-4 mt-4 mr-2 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                        <li class="hover:scale-105">
+                            <a aria-current="page"
+                               class="block py-2 pr-4 pl-3 font-bold text-white rounded md:bg-transparent  md:p-0"
+                               href="/">Home</a>
+                        </li>
+                        <li>
+                            <a class="block py-2 pr-4 pl-3 font-bold text-white rounded md:bg-transparent md:p-0"
+                               href="/contributors">Contributors</a>
+                        </li>
+                        <li>
+                           <a class="block py-2 pr-4 pl-3 font-bold text-white rounded md:bg-transparent md:p-0"
+                            href="/partners">Partners</a>
+                        </li>
+                        <li>
+                            <a class="block py-2 pr-4 pl-3 font-bold text-white rounded md:bg-transparent md:p-0"
+                               href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="flex">
+                        <button class="text-white font-bold bg-secondary focus:ring-4 focus:ring-secondary/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
+                                type="button">
+                            Get started
+                        </button>
+                        <button aria-controls="navbar" aria-expanded="true"
+                                class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                                data-collapse-toggle="navbar" type="button">
+                            <span class="sr-only">Open main menu</span>
+                            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                      fill-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        {{ content }}
+    </body>
+</html>

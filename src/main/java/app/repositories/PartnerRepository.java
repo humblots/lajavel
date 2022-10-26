@@ -9,7 +9,7 @@ public class PartnerRepository {
         Partner[] partners = {
                 new Partner("MyDigitalSchool", "https://file.diplomeo-static.com/file/00/00/01/23/12398.svg"),
                 new Partner("Laravel", "https://itanea.fr/apprendre-le-developpement-web/wp-content/uploads/2020/07/laravel-mark-red-type-black_w1280.png"),
-                new Partner("Javalin", "https://javalin.io/img/javalin.png"),
+                new Partner("Javalin", "https://img.stackshare.io/service/7031/favicon.png"),
         };
         return List.of(partners);
     }
