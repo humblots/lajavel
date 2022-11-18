@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PartnersController extends Controller {
     public void index(Response response) {
-        List<Partner> partners = PartnerRepository.findAll();
+        List<Partner> partners = PartnerRepository.getPartners();
 
         response.html(View.make(
                 "partners",

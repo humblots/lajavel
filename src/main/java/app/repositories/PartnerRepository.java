@@ -5,24 +5,43 @@ import app.models.Partner;
 import java.util.List;
 
 public class PartnerRepository {
-    public static List<Partner> findAll() {
+    private static PartnerRepository instance;
+    private List<Partner> data;
+
+    private PartnerRepository() {
         Partner[] partners = {
-                new Partner("MyDigitalSchool", "https://file.diplomeo-static.com/file/00/00/01/23/12398.svg"),
-                new Partner("Laravel", "https://itanea.fr/apprendre-le-developpement-web/wp-content/uploads/2020/07/laravel-mark-red-type-black_w1280.png"),
-                new Partner("Javalin", "https://img.stackshare.io/service/7031/favicon.png"),
+                new Partner(
+                        "MyDigitalSchool",
+                        "https://file.diplomeo-static.com/file/00/00/01/23/12398.svg",
+                        "https://www.mydigitalschool.com/"
+                ),
+                new Partner(
+                        "Laravel",
+                        "https://itanea.fr/apprendre-le-developpement-web/wp-content/" +
+                                "uploads/2020/07/laravel-mark-red-type-black_w1280.png",
+                        ""
+                ),
+                new Partner("Javalin", "https://img.stackshare.io/service/7031/favicon.png", ""),
         };
-        return List.of(partners);
+        this.data = List.of(partners);
     }
 
-    public static List<List<Partner>> findAllAll() {
-        Partner[] partners = {
-                new Partner("MyDigitalSchool", "s"),
-                new Partner("Laravel", "a"),
-                new Partner("Javalin", "d"),
-                new Partner("Mark Zuck et Berg", "f"),
-        };
-        List<Partner> partnersList = List.of(partners);
-        return List.of(partnersList, partnersList, partnersList);
+    public static PartnerRepository getInstance() {
+        if (instance == null) {
+            instance = new PartnerRepository();
+        }
+        return instance;
+    }
+    
+    public static Partner getOneFromName(String name) {
+        return PartnerRepository.getInstance().data.stream()
+                .filter(partner -> partner.name.equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static List<Partner> getPartners() {
+        return PartnerRepository.getInstance().data;
     }
 
 }

@@ -13,7 +13,7 @@ public class ContributorsController extends Controller {
 
     public void index(Response response) {
 
-        List<Contributor> contributors = ContributorRepository.findAll();
+        List<Contributor> contributors = ContributorRepository.getContributors();
 
         response.html(View.make(
                 "contributors",
