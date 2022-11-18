@@ -4,11 +4,11 @@ import app.models.Partner;
 
 import java.util.List;
 
-public class PartnerRepository {
-    private static PartnerRepository instance;
+public class PartnersRepository {
+    private static PartnersRepository instance;
     private List<Partner> data;
 
-    private PartnerRepository() {
+    private PartnersRepository() {
         Partner[] partners = {
                 new Partner(
                         "MyDigitalSchool",
@@ -30,22 +30,22 @@ public class PartnerRepository {
         this.data = List.of(partners);
     }
 
-    public static PartnerRepository getInstance() {
+    public static PartnersRepository getInstance() {
         if (instance == null) {
-            instance = new PartnerRepository();
+            instance = new PartnersRepository();
         }
         return instance;
     }
 
     public static Partner getOneFromName(String name) {
-        return PartnerRepository.getInstance().data.stream()
+        return PartnersRepository.getInstance().data.stream()
                 .filter(partner -> partner.name.equals(name))
                 .findFirst()
                 .orElse(null);
     }
 
     public static List<Partner> getPartners() {
-        return PartnerRepository.getInstance().data;
+        return PartnersRepository.getInstance().data;
     }
 
 }

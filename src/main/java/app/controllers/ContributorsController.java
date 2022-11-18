@@ -1,7 +1,7 @@
 package app.controllers;
 
 import app.models.Contributor;
-import app.repositories.ContributorRepository;
+import app.repositories.ContributorsRepository;
 import org.lajavel.Controller;
 import org.lajavel.Response;
 import org.lajavel.View;
@@ -12,8 +12,7 @@ import java.util.Map;
 public class ContributorsController extends Controller {
 
     public void index(Response response) {
-
-        List<Contributor> contributors = ContributorRepository.getContributors();
+        List<Contributor> contributors = ContributorsRepository.getContributors();
 
         response.html(View.make(
                 "contributors",

@@ -4,11 +4,11 @@ import app.models.Contributor;
 
 import java.util.List;
 
-public class ContributorRepository {
-    private static ContributorRepository instance;
+public class ContributorsRepository {
+    private static ContributorsRepository instance;
     private List<Contributor> data;
 
-    private ContributorRepository() {
+    private ContributorsRepository() {
         Contributor contributor = new Contributor(
                 "Damien",
                 "Dabernat",
@@ -28,22 +28,22 @@ public class ContributorRepository {
         this.data = List.of(contributor, contributor2);
     }
 
-    public static ContributorRepository getInstance() {
+    public static ContributorsRepository getInstance() {
         if (instance == null) {
-            instance = new ContributorRepository();
+            instance = new ContributorsRepository();
         }
         return instance;
     }
 
     public static Contributor getOneFromFullName(String name) {
-        return ContributorRepository.getInstance().data.stream()
+        return ContributorsRepository.getInstance().data.stream()
                 .filter(contributor -> contributor.getFullName().equals(name))
                 .findFirst()
                 .orElse(null);
     }
 
     public static List<Contributor> getContributors() {
-        return ContributorRepository.getInstance().data;
+        return ContributorsRepository.getInstance().data;
     }
 
 }

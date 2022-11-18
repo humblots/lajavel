@@ -1,7 +1,7 @@
 package app.controllers;
 
 import app.models.Partner;
-import app.repositories.PartnerRepository;
+import app.repositories.PartnersRepository;
 import org.lajavel.Controller;
 import org.lajavel.Response;
 import org.lajavel.View;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PartnersController extends Controller {
     public void index(Response response) {
-        List<Partner> partners = PartnerRepository.getPartners();
+        List<Partner> partners = PartnersRepository.getPartners();
 
         response.html(View.make(
                 "partners",

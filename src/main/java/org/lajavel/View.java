@@ -70,39 +70,6 @@ public class View {
         return sb.toString();
     }
 
-//    private static String handleForeachesReplacement(String html, Map.Entry<String, Object>... entries) {
-//        Matcher matcher = Pattern
-//                .compile("\\{%\s*?for (\\S*) in (\\S*)\s*?%}(.*)\\{%\s*?endfor\s*?%}", Pattern.DOTALL)
-//                .matcher(html);
-//
-//        if (matcher.find()) {
-//            StringBuffer htmlBuffer = new StringBuffer();
-//            StringBuffer foreachHtmlBuffer = new StringBuffer();
-//            do {
-//                foreachHtmlBuffer.clear();
-//                String modelName = matcher.group(1);
-//                String collectionName = matcher.group(2);
-//                String foreachHtml = matcher.group(3);
-//
-//                for (Map.Entry<String, Object> entry : entries) {
-//                    if (!entry.getKey().equals(collectionName)) {
-//                        continue;
-//                    }
-//                    foreachHtmlBuffer.append(handleForeachesReplacement(foreachHtml, entries));
-//                    for (Object model : (List<?>) entry.getValue()) {
-//                        foreachHtmlBuffer.append(handlePropertiesReplacement(foreachHtml, Map.entry(modelName, model)));
-//                    }
-//                }
-//                matcher.appendReplacement(htmlBuffer, foreachHtmlBuffer.toString());
-//                break;
-//            } while (matcher.find());
-//
-//            matcher.appendTail(htmlBuffer);
-//            return htmlBuffer.toString();
-//        }
-//        return "";
-//    }
-
     private static String handlePropertiesReplacement(String html, Map.Entry<String, Object>... entries) {
         Matcher matcher = Pattern.compile("\\{\\{(.*?)}}").matcher(html);
         StringBuffer sb = new StringBuffer();

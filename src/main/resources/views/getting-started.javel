@@ -1,5 +1,5 @@
 <div class="px-4 mt-8 flex">
-    <aside class="w-1/4 hidden lg:block">
+    <aside class="w-1/4 hidden xl:block">
         <a href="/">
             <img alt="Lajavel Logo" class="mb-8 mr-3 h-24"
                  src="https://github.com/DamienDabernat/Lajavel/raw/main/src/main/resources/images/logo_medium.png">
@@ -11,21 +11,23 @@
         <ul>
             <li type="button"><a class="text-base text-slate-100 ml-4" href="#views">Views</a></li>
             <li type="button"><a class="text-base text-slate-100 ml-4" href="#controllers">Controllers</a></li>
+            <li type="button"><a class="text-base text-slate-100 ml-4" href="#routes">Routes</a></li>
             <li type="button"><a class="text-base text-slate-100 ml-4" href="#models">Models</a></li>
             <li type="button"><a class="text-base text-slate-100 ml-4" href="#repositories">Repositories</a></li>
         </ul>
     </aside>
     <div class="flex-1">
-        <h2 class="text-4xl text-white font-black mb-4" id="installation">Installation</h2>
-        <p class="text-lg text-slate-200 mb-8">Git clone this project.</p>
-        <h2 class="text-4xl text-white font-black mb-4" id="getting-started">Getting Started</h2>
+        <h2 class="text-3xl text-white font-black mb-4" id="installation">Installation</h2>
+        <p class="text-lg text-slate-200 mb-8">Git clone <a class="text-pinklajavel" target="_blank" href="https://github.com/humblots/lajavel">this project</a>.</p>
+        <h2 class="text-3xl text-white font-black mb-4" id="getting-started">Getting Started</h2>
         <p class="text-lg text-slate-200">To start the server add this to your Application class :</p>
         <pre>
             <code class="language-java">
 public class MyApp {
     public static void main(String[] args) {
-        // Runs the server on port 7070
-        Application.start(7070);
+        // Runs the server on port 7070 in DEVELOPMENT mode
+        // other modes are TEST and PRODUCTION
+        Application.start(7070, Application.Mode.DEVELOPMENT);
         ...
     }
 }</code>
@@ -78,20 +80,152 @@ resources
 │   │   contributors.javel
 │   │   ...</code>
         </pre>
-        <h3 class="text-2xl text-white font-black mb-2" id="views">Views</h3>
-        <p class="text-lg text-slate-200 mb-8">
-            To create your views, add to the "views" folder a new <strong class="text-yellowlajavel">.javel
-            file</strong>.
+        <h3 class="text-3xl text-white font-black my-4" id="views">Views</h3>
+        <p class="text-lg text-slate-200">
+            Views are the files that contains the content that you want to display when accessing different urls.
+            To create your views, add to your "views" folder a new <strong class="text-yellowlajavel">.javel
+            file</strong> and write some HTML in it.
         </p>
-        <p>The content of your view file will be included in the layout that you choose during rendering.</p>
+        <p class="text-lg text-slate-200">
+            The content of your view file will be included in the layout that you choose during rendering.
+        </p>
         <pre>
             <code class="language-java">
-
-            </code>
+View.make("index") // default layout: main.javel
+                /* OR */
+View.make("index", "empty") // layout: empty.javel</code>
         </pre>
-        <h3 class="text-2xl text-white font-black mb-2" id="controllers">Controllers</h3>
-        <h3 class="text-2xl text-white font-black mb-2" id="models">Models</h3>
-        <h3 class="text-2xl text-white font-black mb-2" id="repositories">Repositories</h3>
+        <p class="text-lg text-slate-200">
+            You can also provide <strong class="text-yellowlajavel">
+            models</strong> to your views in order to display their data.
+        </p>
+        <pre>
+            <code class="language-java">
+View.make("contributors", ContributorsRepository.getContributors())</code>
+        </pre>
+        <h3 class="text-3xl text-white font-black my-4" id="controllers">Controllers</h3>
+        <p class="text-lg text-slate-200">Controllers are used when you make requests.
+            To create a controller, add to the "controllers"
+            folder a new class such as <span class="font-black text-yellowlajavel">DefaultController</span> that extends
+            <strong class="text-yellowlajavel">Lajavel Controller class</strong>.
+        </p>
+        <p class="text-lg text-slate-200">
+            In your controller, you will have to create <strong class="text-yellowlajavel">actions</strong>.
+            Those actions are called when you make a request to a defined <strong
+                class="text-yellowlajavel">route</strong>
+            and usually have to return the <strong class="text-yellowlajavel">response result</strong> of the request that can either be a view or plain data.
+        </p>
+        <pre>
+            <code class="language-java">
+public class DefaultController extends Controller {
+    // index action
+    public void index(Response response) {
+        response.html(View.make("index"));
+    }
+}</code>
+        </pre>
+        <p class="text-lg text-slate-200 mt-4">
+            Your controllers can be more or less complex as they can have to handle processes or fetch data.
+            Here's an example:
+        </p>
+        <pre>
+            <code class="language-java">
+public void index(Response response) {
+    List<Contributor> contributors = ContributorsRepository.getContributors();
+
+    response.html(View.make(
+            "contributors",
+            Map.entry("contributors", contributors)
+    ));
+}</code>
+        </pre>
+        <h3 class="text-3xl text-white font-black my-4" id="routes">Routes</h3>
+        <p class="text-lg text-slate-200">
+            Routes are here to <strong class="text-yellowlajavel">bind a url to a controller action</strong>.
+            You can define as many routes as you need and bind different urls to the same action.
+            You have to create your routes
+            <strong class="text-yellowlajavel">in your Application class after starting the server</strong>.
+        </p>
+        <pre>
+            <code class="language-java">
+public class MyApp {
+    public static void main(String[] args) {
+        Application app = Application.start(7070, Application.Mode.DEVELOPMENT);
+
+        Route.register(HttpVerb.GET, "/", DefaultController.class, "index");
+        Route.register(HttpVerb.GET, "/index", DefaultController.class, "index");
+        Route.register(HttpVerb.GET, "/contributors", ContributorsController.class, "index");
+        ...
+    }
+}</code>
+        </pre>
+        <h3 class="text-3xl text-white font-black my-4" id="models">Models</h3>
+        <p class="text-lg text-slate-200">
+            Models are the classes that contains all of your <strong class="text-yellowlajavel">business work</strong>.
+            They are <strong class="text-yellowlajavel">used in controllers</strong> to render
+            their data in views or to handle some processes. To create a new model, just add to the "models"
+            folder a new class. Here's an example:
+        </p>
+        <pre>
+            <code class="language-java">
+public class Contributor {
+    public String firstName;
+    public String lastName;
+    public String title;
+    public String imageUrl;
+    public String link;
+
+    public Contributor(String firstName, String lastName, String title, String imageUrl, String link) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.title = title;
+        this.imageUrl = imageUrl;
+        this.link = link;
+    }
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+}</code>
+        </pre>
+        <h3 class="text-3xl text-white font-black my-4" id="repositories">Repositories</h3>
+        <p class="text-lg text-slate-200">
+            Repositories classes are here to lighten the amount of code that you would put in your controllers when working with models.
+            They usually regroup the methods that return your <strong class="text-yellowlajavel">models using their data from database</strong>.
+            You can see one of its use cases in the <a class="text-pinklajavel" href="#controllers">Controllers section</a>.
+            Here's an example of repository Class:
+        </p>
+        <pre>
+            <code class="language-java">
+public class ContributorsRepository {
+    private static ContributorsRepository instance;
+    private List<Contributor> data;
+
+    private ContributorsRepository() {
+        Contributor contributor = new Contributor(...);
+        Contributor contributor2 = new Contributor(...);
+        this.data = List.of(contributor, contributor2);
+    }
+
+    public static ContributorsRepository getInstance() {
+        if (instance == null) {
+            instance = new ContributorsRepository();
+        }
+        return instance;
+    }
+
+    public static Contributor getOneFromFullName(String name) {
+        return ContributorsRepository.getInstance().data.stream()
+                .filter(contributor -> contributor.getFullName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static List<Contributor> getContributors() {
+        return ContributorsRepository.getInstance().data;
+    }
+}</code>
+        </pre>
     </div>
 </div>
 
