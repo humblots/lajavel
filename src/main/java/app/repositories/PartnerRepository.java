@@ -19,9 +19,13 @@ public class PartnerRepository {
                         "Laravel",
                         "https://itanea.fr/apprendre-le-developpement-web/wp-content/" +
                                 "uploads/2020/07/laravel-mark-red-type-black_w1280.png",
-                        ""
+                        "https://laravel.com/"
                 ),
-                new Partner("Javalin", "https://img.stackshare.io/service/7031/favicon.png", ""),
+                new Partner(
+                        "Javalin",
+                        "https://img.stackshare.io/service/7031/favicon.png",
+                        "https://javalin.io/"
+                ),
         };
         this.data = List.of(partners);
     }
@@ -32,7 +36,7 @@ public class PartnerRepository {
         }
         return instance;
     }
-    
+
     public static Partner getOneFromName(String name) {
         return PartnerRepository.getInstance().data.stream()
                 .filter(partner -> partner.name.equals(name))

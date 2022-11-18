@@ -3,7 +3,8 @@
     <div class="flex flex-row flex-wrap items-center justify-center">
     {% for contributor in contributors %}
         <a
-          href="#"
+          target="_blank"
+          href="{{ contributor.link }}"
         >
             <div class="m-4 rounded-xl bg-secondary">
                 <img class="w-[300px] h-[200px] block rounded-t-xl object-cover" src="{{ contributor.imageUrl }}" alt="{{ contributor.getFullName() }}"/>

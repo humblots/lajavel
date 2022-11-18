@@ -14,7 +14,7 @@ public class ContributorRepository {
                 "Dabernat",
                 "Lead Developer",
                 "https://avatars.githubusercontent.com/u/10465660?v=4",
-                ""
+                "https://github.com/DamienDabernat"
         );
         Contributor contributor2 = new Contributor(
                 "St&eacute;phane",
@@ -23,7 +23,7 @@ public class ContributorRepository {
                 "https://media-exp1.licdn.com/dms/image/D4E03AQEqpgOhywBo0w/profile-displ" +
                         "ayphoto-shrink_800_800/0/1666794455902?e=1672272000&v=beta&t=-DkXmlZ1kTo2kv" +
                         "AvML_BDyiTLHSt9YrH6MrrdwKYPiQ",
-                ""
+                "https://github.com/humblots"
         );
         this.data = List.of(contributor, contributor2);
     }

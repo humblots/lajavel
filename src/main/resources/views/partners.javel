@@ -3,7 +3,8 @@
     <div class="flex flex-row flex-wrap items-center justify-center">
     {% for partner in partners %}
         <a
-          href="#"
+          target="_blank"
+          href="{{ partner.link }}"
         >
             <div class="m-4 rounded-xl bg-secondary">
                 <img class="p-4 w-[300px] h-[200px] block rounded-t-xl object-contain" src="{{ partner.imageUrl }}" alt="{{ partner.name }}"/>
