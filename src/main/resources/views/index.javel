@@ -11,16 +11,9 @@
         <div class="mt-8 flex flex-wrap gap-4 text-center">
             <a
                     class="block w-full rounded bg-secondary px-12 py-3 text-sm font-medium text-white shadow hover:bg-secondary-700 focus:outline-none focus:ring active:bg-secondary-500 sm:w-auto"
-                    href="#"
+                    href="/getting-started"
             >
                 Get Started
-            </a>
-
-            <a
-                    class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-secondary shadow hover:text-secondary-700 focus:outline-none focus:ring active:text-secondary-500 sm:w-auto"
-                    href="#"
-            >
-                Learn More
             </a>
         </div>
     </div>
