@@ -81,14 +81,8 @@ resources
         <h3 class="text-2xl text-white font-black mb-2" id="views">Views</h3>
         <p class="text-lg text-slate-200 mb-8">
             To create your views, add to the "views" folder a new <strong class="text-yellowlajavel">.javel
-            file</strong>.
+            file</strong>
         </p>
-        <p>The content of your view file will be included in the layout that you choose during rendering.</p>
-        <pre>
-            <code class="language-java">
-
-            </code>
-        </pre>
         <h3 class="text-2xl text-white font-black mb-2" id="controllers">Controllers</h3>
         <h3 class="text-2xl text-white font-black mb-2" id="models">Models</h3>
         <h3 class="text-2xl text-white font-black mb-2" id="repositories">Repositories</h3>

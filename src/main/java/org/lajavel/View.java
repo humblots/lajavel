@@ -30,7 +30,7 @@ public class View {
         String layoutHtml = View.getViewContent("layouts/" + layout);
         String viewHtml = View.getViewContent("views/" + viewName);
 
-        String rawHtml = layoutHtml.replaceFirst("\\{\\{\s*?content\s*?}}", viewHtml);
+        String rawHtml = layoutHtml.replaceFirst("\\{\\{\s?content\s?}}", viewHtml);
 
         String html = handleForeachesReplacement(rawHtml, entries);
         return handlePropertiesReplacement(html, entries);
