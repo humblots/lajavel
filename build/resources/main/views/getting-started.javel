@@ -16,7 +16,7 @@
             <li type="button"><a class="text-base text-slate-100 ml-4" href="#repositories">Repositories</a></li>
         </ul>
     </aside>
-    <div class="flex-1">
+    <div class="flex-1 mx-4">
         <h2 class="text-3xl text-white font-black mb-4" id="installation">Installation</h2>
         <p class="text-lg text-slate-200 mb-8">Git clone <a class="text-pinklajavel" target="_blank" href="https://github.com/humblots/lajavel">this project</a>.</p>
         <h2 class="text-3xl text-white font-black mb-4" id="getting-started">Getting Started</h2>

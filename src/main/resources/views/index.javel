@@ -5,7 +5,7 @@
         <h1 class="text-3xl text-pinklajavel font-extrabold sm:text-5xl">
             Lajavel
             <span class="block font-extrabold text-white text-2xl sm:text-4xl">
-                The framework that keeps your code clean.
+                The framework that keeps your <strong class="text-yellowlajavel">code clean</strong>
             </span>
         </h1>
         <div class="mt-8 flex flex-wrap gap-4 text-center">

@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
 public class View {
     // Default make
     public static String make(String viewName, Map.Entry<String, Object>... entries) {
-        String layoutHtml = View.getViewContent("layouts/main");
-        String viewHtml = View.getViewContent("views/" + viewName);
+        String layoutHtml = View.getViewContent("layouts", "main");
+        String viewHtml = View.getViewContent("views", viewName);
 
         String rawHtml = layoutHtml.replaceFirst("\\{\\{\s*?content\s*?}}", viewHtml);
 
@@ -27,8 +27,8 @@ public class View {
 
     // make with Layout parameter
     public static String make(String viewName, String layout, Map.Entry<String, Object>... entries) {
-        String layoutHtml = View.getViewContent("layouts/" + layout);
-        String viewHtml = View.getViewContent("views/" + viewName);
+        String layoutHtml = View.getViewContent("layouts", layout);
+        String viewHtml = View.getViewContent("views", viewName);
 
         String rawHtml = layoutHtml.replaceFirst("\\{\\{\s?content\s?}}", viewHtml);
 
@@ -96,8 +96,8 @@ public class View {
         return sb.toString();
     }
 
-    private static String getViewContent(String viewName) {
-        URL resource = MyApp.class.getClassLoader().getResource(viewName + ".javel");
+    private static String getViewContent(String path, String viewName) {
+        URL resource = MyApp.class.getClassLoader().getResource(path + '/' + viewName + ".javel");
 
         if (resource == null) {
             throw new RuntimeException("File " + viewName + " not found");
